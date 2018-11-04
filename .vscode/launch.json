@@ -1,0 +1,38 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}\\index.js",
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
+        },
+        {
+            "request": "launch",
+            "console": "internalConsole",
+            "name": "T | Run current jest test",
+            "type": "node",
+            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+            "stopOnEntry": false,
+            "args": [
+                "-i",
+            ],
+            "sourceMaps": true,
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": null,
+            "env": {
+                "PORT": "2065",
+                "DEBUG": "tmla:alert",
+                "NODE_ENV": "debug",
+                "NODE_CONFIG_ENV": "local",
+                "NODE_CONFIG_DIR": "${workspaceRoot}/config/"
+            }
+        },
+    ]
+}

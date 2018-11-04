@@ -1,0 +1,59 @@
+{
+  "name": "jesta",
+  "version": "1.0.3",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prepublish": "npm version patch",
+    "test": "npm run test:coverage",
+    "build": "tsc",
+    "test:coverage": "nyc --reporter=lcov --reporter=html npm run test:unit && nyc report",
+    "test:unit": "jest -i"
+  },
+  "jest": {
+    "verbose": true,
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest",
+      "^.+\\.ts?$": "ts-jest"
+    },
+    "testRegex": "/.*\\.spec.(ts|tsx|js)?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.json"
+      }
+    },
+    "coverageDirectory": "<rootDir>/coverage/",
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "clover"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "/*.{ts,tsx}",
+      "!src/index.ts",
+      "!src/**/*.d.ts",
+      "!**/node_modules/**"
+    ]
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jest": "^23.3.9",
+    "@types/node": "^10.12.1",
+    "cucumber": "^5.0.2",
+    "jest": "^23.6.0",
+    "jest-cucumber": "^1.0.11",
+    "ts-jest": "^23.10.4"
+  },
+  "devDependencies": {
+    "nyc": "^13.1.0",
+    "typescript": "^3.1.5"
+  }
+}
