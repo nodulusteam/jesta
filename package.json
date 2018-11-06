@@ -1,14 +1,14 @@
 {
   "name": "jesta",
-  "version": "1.0.3",
+  "version": "2.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
     "prepublish": "npm version patch",
-    "test": "npm run test:coverage",
+    "test": "npm run build && npm run test:coverage",
     "build": "tsc",
     "test:coverage": "nyc --reporter=lcov --reporter=html npm run test:unit && nyc report",
-    "test:unit": "jest -i"
+    "test:unit": "npm run build && jest -i"
   },
   "jest": {
     "verbose": true,
@@ -16,7 +16,7 @@
       "^.+\\.tsx?$": "ts-jest",
       "^.+\\.ts?$": "ts-jest"
     },
-    "testRegex": "/.*\\.spec.(ts|tsx|js)?$",
+    "testRegex": "/.*\\.spec.(ts)?$",
     "moduleFileExtensions": [
       "ts",
       "tsx",

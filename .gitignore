@@ -4,3 +4,4 @@ yarn-error.log
 *.map
 *.js
 *.d.ts
+.nyc_output/

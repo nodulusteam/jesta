@@ -44,17 +44,15 @@ class Jester {
     }
 }
 
-export function Cucumber(featurFilePath: string, options?: any) {
+export function Jesta(featurFilePath: string, options?: any) {
     return function (target: Function) {
         const feature = loadFeature(featurFilePath);
         Object.getOwnPropertyNames(target.prototype).forEach((member) => {
             if (member !== 'constructor') {
                 target.prototype[member]();
             }
-        })
-
+        });
         defineFeature(feature, (test) => {
-
             Object.keys(Jester.tests).forEach((testItem) => {
                 const testInstance = new Object();
                 test(testItem, ({ given, when, then }) => {

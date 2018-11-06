@@ -5,14 +5,11 @@ const regex1 = /\$(\d+)$/;
 
 
 const theTests = ['company enable true', 'company enable false']
-@Jesta('tests/simple.feature')
+@Jesta('tests/complex.feature')
 class SimpleTest {
     state: any;
-    // /^enable \$(\d+)$/
-
     @Given(['company enable true'], /enable (.+)$/)
     public start(state: boolean) {
-
         this.state = { status: state };
     }
 

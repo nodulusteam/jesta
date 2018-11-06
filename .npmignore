@@ -2,3 +2,13 @@
 **/*.ts
 !*.d.ts
 !**/*.d.ts
+node_modules/
+coverage/
+yarn-error.log 
+.nyc_output/
+tests
+.git
+.vscode
+tsconfig.json
+yarn.lock
+
