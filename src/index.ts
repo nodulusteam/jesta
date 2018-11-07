@@ -1,6 +1,6 @@
-import { loadFeature, defineFeature } from 'jest-cucumber';
-import { type } from 'os';
 
+import { Types } from './types';
+import { Runner } from './runners/run';
 class Jester {
     static tests: {} = {};
     constructor() {
@@ -44,35 +44,15 @@ class Jester {
     }
 }
 
-export function Jesta(featurFilePath: string, options?: any) {
+export function Jesta(jestaType: Types, featurFilePath: string, options?: any) {
     return function (target: Function) {
-        const feature = loadFeature(featurFilePath);
+
         Object.getOwnPropertyNames(target.prototype).forEach((member) => {
             if (member !== 'constructor') {
                 target.prototype[member]();
             }
         });
-        defineFeature(feature, (test) => {
-            Object.keys(Jester.tests).forEach((testItem) => {
-                const testInstance = new Object();
-                test(testItem, ({ given, when, then }) => {
-                    Jester.tests[testItem].forEach((item) => {
-                        if (item.given) {
-                            given(item.given, item.call.bind(testInstance));
-                        }
-
-                        if (item.when) {
-                            when(item.when, item.call.bind(testInstance));
-                        }
-
-                        if (item.then) {
-                            then(item.then, item.call.bind(testInstance));
-                        }
-
-                    });
-                });
-            });
-        });
+        Runner.run(jestaType, featurFilePath, Jester.tests);
     }
 }
 

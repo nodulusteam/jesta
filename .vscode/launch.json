@@ -34,5 +34,28 @@
                 "NODE_CONFIG_DIR": "${workspaceRoot}/config/"
             }
         },
+        {
+            "request": "launch",
+            "console": "internalConsole",
+            "name": "T | Run current cucmber test",
+            "type": "node",
+            "program": "${workspaceRoot}/node_modules/cucumber/bin/cucumber-js",
+            "stopOnEntry": false,
+            "args": [
+                "./tests/cucumber.feature",
+                "--require",
+                "./tests/cucumber.spec.js",
+            ],
+            "sourceMaps": true,
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": null,
+            "env": {
+                "PORT": "2065",
+                "DEBUG": "tmla:alert",
+                "NODE_ENV": "debug",
+                "NODE_CONFIG_ENV": "local",
+                "NODE_CONFIG_DIR": "${workspaceRoot}/config/"
+            }
+        },
     ]
 }

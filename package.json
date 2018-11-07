@@ -8,7 +8,9 @@
     "test": "npm run build && npm run test:coverage",
     "build": "tsc",
     "test:coverage": "nyc --reporter=lcov --reporter=html npm run test:unit && nyc report",
-    "test:unit": "npm run build && jest -i"
+    "test:unit": "npm run build && jest -i",
+    "test:jest": "jest -i jest.spec",
+    "test:cucumber": "cucumber-js ./tests/cucumber.feature --require ./tests/cucumber.spec.js"
   },
   "jest": {
     "verbose": true,

@@ -1,11 +1,11 @@
-import { Jesta, When, Given, Then } from "../src";
+import { Jesta, When, Given, Then, Types } from '../';
 
 const regex1 = /\$(\d+)$/;
 
 
 
 const theTests = ['company enable true', 'company enable false']
-@Jesta('tests/simple.feature')
+@Jesta(Types.Jest, 'tests/jest.feature')
 class SimpleTest {
     state: any;
     // /^enable \$(\d+)$/

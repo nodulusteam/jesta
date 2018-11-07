@@ -1,4 +1,4 @@
-Feature: company
+Feature: test-with-jest
 
 
     Scenario: company enable false
