@@ -1,0 +1,15 @@
+{
+  "name": "example-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js ./cucumber.feature --require ./cucumber.spec.js",
+    "test:jest":"jest -i"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jesta": "^2.0.8"
+  }
+}
