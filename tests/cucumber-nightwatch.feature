@@ -1,4 +1,4 @@
-Feature: Complex test
+Feature: nightwatch test
     Scenario: test homepage validity
 
         Given the user opens the homepage "title"

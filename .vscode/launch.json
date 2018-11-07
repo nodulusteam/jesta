@@ -57,5 +57,50 @@
                 "NODE_CONFIG_DIR": "${workspaceRoot}/config/"
             }
         },
+        {
+            "request": "launch",
+            "console": "internalConsole",
+            "name": "T | Run cucmber-nightwatch test",
+            "type": "node",
+            "program": "${workspaceRoot}/node_modules/cucumber/bin/cucumber-js",
+            "stopOnEntry": false,
+            "args": [
+                "./tests/nightwatch.feature",
+                "--require",
+                "./tests/nightwatch.spec.js"
+            ],
+            "sourceMaps": true,
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": null,
+            "env": {
+                "PORT": "2065",
+                "DEBUG": "tmla:alert",
+                "NODE_ENV": "debug",
+                "NODE_CONFIG_ENV": "local",
+                "NODE_CONFIG_DIR": "${workspaceRoot}/config/"
+            }
+        },
+        {
+            "request": "launch",
+            "console": "internalConsole",
+            "name": "T | Run jest-nightwatch test",
+            "type": "node",
+            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+            "stopOnEntry": false,
+            "args": [
+                "-i",
+                "jest-nightwatch.spec"
+            ],
+            "sourceMaps": true,
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": null,
+            "env": {
+                "PORT": "2065",
+                "DEBUG": "tmla:alert",
+                "NODE_ENV": "debug",
+                "NODE_CONFIG_ENV": "local",
+                "NODE_CONFIG_DIR": "${workspaceRoot}/config/"
+            }
+        },
     ]
 }

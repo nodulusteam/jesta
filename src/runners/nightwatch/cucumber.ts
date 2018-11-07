@@ -1,20 +1,20 @@
 import { Given, Then, When, setDefaultTimeout, AfterAll, BeforeAll } from 'cucumber';
-//import { createSession, closeSession } from 'nightwatch-api';
+import { createSession, closeSession } from 'nightwatch-api';
 
 
 
 
-export class CucumberRunner {
+export class CucumberNightWatchRunner {
     static run(featurFilePath, tests) {
 
         setDefaultTimeout(80000);
 
         BeforeAll(async () => {
-            //await createSession('default');
+            await createSession('default');
         });
 
         AfterAll(async () => {
-            //await closeSession();
+            await closeSession();
         });
 
 

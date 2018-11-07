@@ -5,3 +5,4 @@ yarn-error.log
 *.js
 *.d.ts
 .nyc_output/
+!nightwatch.conf.js

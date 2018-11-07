@@ -4,13 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prepublish": "npm version patch",
+    "patch": "npm version patch",
     "test": "npm run build && npm run test:coverage",
     "build": "tsc",
     "test:coverage": "nyc --reporter=lcov --reporter=html npm run test:unit && nyc report",
     "test:unit": "npm run build && jest -i",
     "test:jest": "jest -i jest.spec",
-    "test:cucumber": "cucumber-js ./tests/cucumber.feature --require ./tests/cucumber.spec.js"
+    "test:setup": "node ./tests/nightwatch/server.js",
+    "test:cucumber": "cucumber-js ./tests/cucumber.feature --require ./tests/cucumber.spec.js",
+    "test:jest-nightwatch": "start-server-and-test test:setup  http://127.0.0.1:4444 test:jest-nightwatch:start",
+    "test:jest-nightwatch:start": "jest -i jest-nightwatch.spec",
+    "test:cucumber-nightwatch": "start-server-and-test test:setup  http://127.0.0.1:4444 test:cucumber-nightwatch:start",
+    "test:cucumber-nightwatch:start": "cucumber-js ./tests/cucumber-nightwatch.feature --require ./tests/cucumber-nightwatch.spec.js"
   },
   "jest": {
     "verbose": true,
@@ -47,15 +52,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/jest": "^23.3.9",
-    "@types/node": "^10.12.1",
     "cucumber": "^5.0.2",
     "jest": "^23.6.0",
     "jest-cucumber": "^1.0.11",
+    "nightwatch": "^1.0.11",
+    "nightwatch-api": "^1.0.0",
     "ts-jest": "^23.10.4"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.9",
+    "@types/node": "^10.12.1",
+    "chromedriver": "^2.43.1",
     "nyc": "^13.1.0",
+    "selenium-server-standalone-jar": "^3.14.0",
+    "start-server-and-test": "^1.7.9",
     "typescript": "^3.1.5"
   }
 }

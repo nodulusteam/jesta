@@ -1,4 +1,6 @@
 export const enum Types{
     Jest='Jest',
-    Cucumber='Cucumber'
+    Cucumber='Cucumber',
+    JestNightWatch='JestNightWatch',
+    CucumberNightWatch='CucumberNightWatch'
 }
