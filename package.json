@@ -8,7 +8,7 @@
     "test": "npm run build && npm run test:coverage",
     "build": "tsc",
     "test:coverage": "nyc --reporter=lcov --reporter=html npm run test:unit && nyc report",
-    "test:unit": "npm run build && jest -i",
+    "test:unit": "npm run test:jest && npm run test:cucumber && npm run test:jest-nightwatch && npm run test:cucumber-nightwatch",
     "test:jest": "jest -i jest.spec",
     "test:setup": "node ./tests/nightwatch/server.js",
     "test:cucumber": "cucumber-js ./tests/cucumber.feature --require ./tests/cucumber.spec.js",
