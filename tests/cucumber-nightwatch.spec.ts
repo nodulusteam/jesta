@@ -1,23 +1,23 @@
-import { Jesta, When, Given, Then, Types,BeforeAll,AfterAll } from '../';
+import { Jesta, When, Given, Then, Types, BeforeAll, AfterAll } from '../';
 var assert = require('assert');
 const regex1 = /\$(\d+)$/;
 import { client } from 'nightwatch-api';
 import { createSession, closeSession } from 'nightwatch-api';
 
 
-const theTests = ['test homepage validity']
+const theTests = ['test homepage validity', 'test homepage validity again']
 @Jesta(Types.CucumberNightWatch, 'tests/cucumber.feature')
 class NightwatchTest {
     state: any;
 
 
     @BeforeAll()
-    async createSession(){
+    async createSession() {
         await createSession('default');
     }
 
     @AfterAll()
-    async closeSession(){
+    async closeSession() {
         await closeSession();
     }
 
@@ -42,8 +42,14 @@ class NightwatchTest {
     @When(theTests, /the page loads (.*)$/)
     public async  action_off(title: string) {
         this.state.action = (title === 'true');
+
+    }
+
+    @Then(theTests, /shutdown$/)
+    public async  shutdown() {
         return await client.end();
     }
+
 
 
 }

@@ -9,11 +9,11 @@
     "build": "tsc",
     "selenium": "webdriver-manager update && webdriver-manager start --detach",
     "test:coverage": "nyc --reporter=lcov --reporter=html npm run test:unit && nyc report",
-    "test:unit": "npm run selenium & npm run test:jest && npm run test:cucumber && npm run test:jest-nightwatch && npm run test:cucumber-nightwatch && webdriver-manager shutdown",
+    "test:unit": "npm run test:jest && npm run test:cucumber && npm run test:jest-nightwatch && npm run test:cucumber-nightwatch && webdriver-manager shutdown",
     "test:jest": "jest -i jest.spec",
     "setup": "node ./tests/nightwatch/server.js",
     "test:cucumber": "cucumber-js ./tests/cucumber.feature --require ./tests/cucumber.spec.js",
-    "test:jest-nightwatch": "jest -i jest-nightwatch.spec",
+    "test:jest-nightwatch": "jest -i jest-nightwatch.spec.ts",
     "test:cucumber-nightwatch": "cucumber-js ./tests/cucumber-nightwatch.feature --require ./tests/cucumber-nightwatch.spec.js"
   },
   "jest": {

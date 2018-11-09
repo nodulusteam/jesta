@@ -2,18 +2,18 @@ import { Jesta, When, Given, Then, Types, BeforeAll, AfterAll } from '../';
 import { client } from 'nightwatch-api';
 import { createSession, closeSession } from 'nightwatch-api';
 
-const theTests = ['test homepage validity']
+const theTests = ['test homepage validity', 'test homepage validity again']
 @Jesta(Types.JestNightWatch, 'tests/jest-nightwatch.feature')
 class NightwatchJestTest {
     state: any;
 
     @BeforeAll()
-    async createSession(){
+    async createSession() {
         await createSession('default');
     }
 
     @AfterAll()
-    async closeSession(){
+    async closeSession() {
         await closeSession();
     }
 
@@ -39,11 +39,14 @@ class NightwatchJestTest {
         client.assert.title('Google');
 
 
-        client.end();
+
         return true;
     }
 
-
+    @Then(['test homepage validity again'], 'shutdown')
+    public async  shutdown() {
+        return await client.end();
+    }
 
 
 }

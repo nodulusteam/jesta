@@ -4,3 +4,9 @@ Feature: jest nightwatch test
         When the page loads
         Then title should be
 
+    Scenario: test homepage validity again
+        Given the user opens the homepage
+        When the page loads
+        Then title should be
+        Then shutdown
+
