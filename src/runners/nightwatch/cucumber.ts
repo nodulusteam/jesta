@@ -1,26 +1,35 @@
 import { Given, Then, When, setDefaultTimeout, AfterAll, BeforeAll } from 'cucumber';
-import { createSession, closeSession } from 'nightwatch-api';
-
-
-
 
 export class CucumberNightWatchRunner {
     static run(featurFilePath, tests) {
 
         setDefaultTimeout(80000);
 
-        BeforeAll(async () => {
-            await createSession('default');
-        });
+        if (tests['beforeAll']) {
+            BeforeAll(async () => {
+                await tests['beforeAll']();
+            });
+        }
 
-        AfterAll(async () => {
-            await closeSession();
-        });
+        if (tests['afterAll']) {
+            AfterAll(async () => {
+                await tests['afterAll']();
+            });
+        }
+
+
+
+        // AfterAll(async () => {
+        //     await closeSession();
+        // });
 
 
         //const feature = loadFeature(featurFilePath);
         // defineFeature(feature, (test) => {
         Object.keys(tests).forEach((testItem) => {
+            if (!tests[testItem] || !tests[testItem].forEach) {
+                return;
+            }
             const testInstance = new Object();
             // test(testItem, ({ given, when, then }) => {
             tests[testItem].forEach((item) => {

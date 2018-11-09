@@ -22,6 +22,7 @@
             "stopOnEntry": false,
             "args": [
                 "-i",
+                "jest.spec.ts"
             ],
             "sourceMaps": true,
             "cwd": "${workspaceRoot}",
@@ -65,9 +66,9 @@
             "program": "${workspaceRoot}/node_modules/cucumber/bin/cucumber-js",
             "stopOnEntry": false,
             "args": [
-                "./tests/nightwatch.feature",
+                "./tests/cucumber-nightwatch.feature",
                 "--require",
-                "./tests/nightwatch.spec.js"
+                "./tests/cucumber-nightwatch.spec.js"
             ],
             "sourceMaps": true,
             "cwd": "${workspaceRoot}",

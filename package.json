@@ -7,15 +7,14 @@
     "patch": "npm version patch",
     "test": "npm run build && npm run test:coverage",
     "build": "tsc",
+    "selenium": "webdriver-manager update && webdriver-manager start --detach",
     "test:coverage": "nyc --reporter=lcov --reporter=html npm run test:unit && nyc report",
-    "test:unit": "npm run test:jest && npm run test:cucumber && npm run test:jest-nightwatch && npm run test:cucumber-nightwatch",
+    "test:unit": "npm run selenium & npm run test:jest && npm run test:cucumber && npm run test:jest-nightwatch && npm run test:cucumber-nightwatch && webdriver-manager shutdown",
     "test:jest": "jest -i jest.spec",
-    "test:setup": "node ./tests/nightwatch/server.js",
+    "setup": "node ./tests/nightwatch/server.js",
     "test:cucumber": "cucumber-js ./tests/cucumber.feature --require ./tests/cucumber.spec.js",
-    "test:jest-nightwatch": "start-server-and-test test:setup  http://127.0.0.1:4444 test:jest-nightwatch:start",
-    "test:jest-nightwatch:start": "jest -i jest-nightwatch.spec",
-    "test:cucumber-nightwatch": "start-server-and-test test:setup  http://127.0.0.1:4444 test:cucumber-nightwatch:start",
-    "test:cucumber-nightwatch:start": "cucumber-js ./tests/cucumber-nightwatch.feature --require ./tests/cucumber-nightwatch.spec.js"
+    "test:jest-nightwatch": "jest -i jest-nightwatch.spec",
+    "test:cucumber-nightwatch": "cucumber-js ./tests/cucumber-nightwatch.feature --require ./tests/cucumber-nightwatch.spec.js"
   },
   "jest": {
     "verbose": true,
@@ -57,7 +56,8 @@
     "jest-cucumber": "^1.0.11",
     "nightwatch": "^1.0.11",
     "nightwatch-api": "^1.0.0",
-    "ts-jest": "^23.10.4"
+    "ts-jest": "^23.10.4",
+    "webdriver-manager": "^12.1.0"
   },
   "devDependencies": {
     "@types/jest": "^23.3.9",

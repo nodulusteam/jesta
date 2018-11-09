@@ -2,7 +2,7 @@
 import { Types } from './types';
 import { Runner } from './runners/run';
 class Jester {
-    static tests: {} = {};
+    static tests: { afterAll: null, beforeAll: null } = { afterAll: null, beforeAll: null };
     constructor() {
 
     }
@@ -25,7 +25,6 @@ class Jester {
 
         [...test].forEach((_test) => {
             this.verifyTests(_test);
-
             this.tests[_test].push({ [type]: expression, 'call': callback });
         })
 
@@ -41,6 +40,14 @@ class Jester {
 
     static then(test, expression, callback) {
         this.addStep('then', test, expression, callback);
+    }
+
+    static beforeAll(callback) {
+        this.tests.beforeAll = callback;
+    }
+
+    static afterAll(callback) {
+        this.tests.afterAll = callback;
     }
 }
 
@@ -85,3 +92,26 @@ export function Then(test: string | string[], expression: any) {
         return descriptor;
     }
 }
+
+export function BeforeAll() {
+    return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
+        const assertion = descriptor.value;
+        Jester.initJester(target);
+        Jester.beforeAll(assertion);
+        descriptor.value = () => { };
+        return descriptor;
+    }
+}
+
+export function AfterAll() {
+    return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
+        const assertion = descriptor.value;
+        Jester.initJester(target);
+        Jester.afterAll(assertion);
+        descriptor.value = () => { };
+        return descriptor;
+    }
+}
+
+
+

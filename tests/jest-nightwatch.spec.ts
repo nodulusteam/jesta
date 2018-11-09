@@ -1,13 +1,24 @@
-import { Jesta, When, Given, Then, Types } from '../';
-
-const regex1 = /\$(\d+)$/;
+import { Jesta, When, Given, Then, Types, BeforeAll, AfterAll } from '../';
 import { client } from 'nightwatch-api';
-
+import { createSession, closeSession } from 'nightwatch-api';
 
 const theTests = ['test homepage validity']
 @Jesta(Types.JestNightWatch, 'tests/jest-nightwatch.feature')
 class NightwatchJestTest {
     state: any;
+
+    @BeforeAll()
+    async createSession(){
+        await createSession('default');
+    }
+
+    @AfterAll()
+    async closeSession(){
+        await closeSession();
+    }
+
+
+
     @Given(theTests, 'the user opens the homepage')
     public async start(title: string) {
         this.state = { action: false };
