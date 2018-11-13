@@ -5,7 +5,7 @@ const regex1 = /\$(\d+)$/;
 
 
 const theTests = ['company enable true', 'company enable false']
-@Jesta(Types.Jest, 'tests/jest.feature')
+@Jesta(Types.Jest, 'tests/jest-alone.1.feature')
 class SimpleTest {
     state: any;
     // /^enable \$(\d+)$/

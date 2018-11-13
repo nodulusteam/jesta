@@ -2,59 +2,90 @@
 import { Types } from './types';
 import { Runner } from './runners/run';
 class Jester {
-    static tests: { afterAll: null, beforeAll: null } = { afterAll: null, beforeAll: null };
+    static tests: {};//{ afterAll: null, beforeAll: null } = { afterAll: null, beforeAll: null };
     constructor() {
 
     }
-    static initJester(target) {
+    static jestMethods: any = {};
+    static initJester(target, propertyKey) {
+        if (!this.jestMethods[target]) {
+            this.jestMethods[target] = [];
+        }
+        this.jestMethods[target].push(propertyKey);
         // (target as any).jester = (target as any).jester || { tests: {} };
         // const jester = (target as any).jester;
         // return jester
     }
 
-    static verifyTests(test: string) {
-        if (!this.tests[test]) {
-            this.tests[test] = [];
+    static verifyTests(target: any, test?: string) {
+
+        if (!this.tests) {
+            this.tests = {};
         }
+
+        if (!this.tests[target]) {
+            this.tests[target] = {};
+        }
+
+        if (test) {
+            if (!this.tests[target][test]) {
+                this.tests[target][test] = [];
+            }
+        }
+
     }
 
-    static addStep(type, test, expression, callback) {
+    static addStep(type, target, test, expression, callback) {
         if (!Array.isArray(test)) {
             throw new Error('parameter tests must be an array');
         }
 
         [...test].forEach((_test) => {
-            this.verifyTests(_test);
-            this.tests[_test].push({ [type]: expression, 'call': callback });
+            this.verifyTests(target, _test);
+            this.tests[target][_test].push({ [type]: expression, 'call': callback });
         })
 
     }
 
-    static given(test, expression, callback) {
-        this.addStep('given', test, expression, callback);
+    static given(target, test, expression, callback) {
+        this.addStep('given', target, test, expression, callback);
     }
 
-    static when(test, expression, callback) {
-        this.addStep('when', test, expression, callback);
+    static when(target, test, expression, callback) {
+        this.addStep('when', target, test, expression, callback);
     }
 
-    static then(test, expression, callback) {
-        this.addStep('then', test, expression, callback);
+    static then(target, test, expression, callback) {
+        this.addStep('then', target, test, expression, callback);
     }
 
-    static beforeAll(callback) {
-        this.tests.beforeAll = callback;
+    static beforeAll(target, callback) {
+        this.verifyTests(target);
+        this.tests[target].beforeAll = callback;
     }
 
-    static afterAll(callback) {
-        this.tests.afterAll = callback;
+    static afterAll(target, callback) {
+        this.verifyTests(target);
+        this.tests[target].afterAll = callback;
+    }
+}
+let featurFilePathKey = '';
+
+function getName(target) {
+    if (target.name) {
+        return target.name;
+    } else {
+        return target.constructor.name;
     }
 }
 
 export function Jesta(jestaType: Types, featurFilePath: string, options?: any) {
-    return function (target: Function) {
+    featurFilePathKey = featurFilePath;
+    return function (target: any) {
 
-        Object.getOwnPropertyNames(target.prototype).forEach((member) => {
+        target.featurFilePath = featurFilePath;
+        // Object.getOwnPropertyNames(target.prototype)
+        Jester.jestMethods[getName(target)].forEach((member) => {
             if (member !== 'constructor') {
                 target.prototype[member]();
             }
@@ -66,8 +97,8 @@ export function Jesta(jestaType: Types, featurFilePath: string, options?: any) {
 export function Given(test: string | string[], expression: any) {
     return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
         const assertion = descriptor.value;
-        Jester.initJester(target);
-        Jester.given(test, expression, assertion);
+        Jester.initJester(getName(target), propertyKey);
+        Jester.given(getName(target), test, expression, assertion);
         descriptor.value = () => { };
         return descriptor;
     };
@@ -76,8 +107,8 @@ export function Given(test: string | string[], expression: any) {
 export function When(test: string | string[], expression: any) {
     return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
         const assertion = descriptor.value;
-        Jester.initJester(target);
-        Jester.when(test, expression, assertion);
+        Jester.initJester(getName(target), propertyKey);
+        Jester.when(getName(target), test, expression, assertion);
         descriptor.value = () => { };
         return descriptor;
     }
@@ -86,8 +117,8 @@ export function When(test: string | string[], expression: any) {
 export function Then(test: string | string[], expression: any) {
     return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
         const assertion = descriptor.value;
-        Jester.initJester(target);
-        Jester.then(test, expression, assertion);
+        Jester.initJester(getName(target), propertyKey);
+        Jester.then(getName(target), test, expression, assertion);
         descriptor.value = () => { };
         return descriptor;
     }
@@ -96,8 +127,8 @@ export function Then(test: string | string[], expression: any) {
 export function BeforeAll() {
     return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
         const assertion = descriptor.value;
-        Jester.initJester(target);
-        Jester.beforeAll(assertion);
+        Jester.initJester(getName(target), propertyKey);
+        Jester.beforeAll(getName(target), assertion);
         descriptor.value = () => { };
         return descriptor;
     }
@@ -106,8 +137,8 @@ export function BeforeAll() {
 export function AfterAll() {
     return function (target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
         const assertion = descriptor.value;
-        Jester.initJester(target);
-        Jester.afterAll(assertion);
+        Jester.initJester(getName(target), propertyKey);
+        Jester.afterAll(getName(target), assertion);
         descriptor.value = () => { };
         return descriptor;
     }

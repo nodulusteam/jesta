@@ -14,7 +14,7 @@
     "setup": "node ./tests/nightwatch/server.js",
     "test:cucumber": "cucumber-js ./tests/cucumber.feature --require ./tests/cucumber.spec.js",
     "test:jest-nightwatch": "jest -i jest-nightwatch.spec.ts",
-    "test:cucumber-nightwatch": "cucumber-js ./tests/cucumber-nightwatch.feature --require ./tests/cucumber-nightwatch.spec.js"
+    "test:cucumber-nightwatch": "cucumber-js ./tests/cucumber-nightwatch.*.feature --require ./tests/cucumber-nightwatch.*.spec.js"
   },
   "jest": {
     "verbose": true,
@@ -52,6 +52,7 @@
   "license": "ISC",
   "dependencies": {
     "cucumber": "^5.0.2",
+    "gherkin-jest": "^0.24.0",
     "jest": "^23.6.0",
     "jest-cucumber": "^1.0.11",
     "nightwatch": "^1.0.11",

@@ -3,8 +3,8 @@ import { client } from 'nightwatch-api';
 import { createSession, closeSession } from 'nightwatch-api';
 
 const theTests = ['test homepage validity', 'test homepage validity again']
-@Jesta(Types.JestNightWatch, 'tests/jest-nightwatch.feature')
-class NightwatchJestTest {
+@Jesta(Types.JestNightWatch, 'tests/jest-nightwatch.1.feature')
+class NightwatchJestTest2 {
     state: any;
 
     @BeforeAll()

@@ -6,7 +6,7 @@ import { createSession, closeSession } from 'nightwatch-api';
 
 
 const theTests = ['test homepage validity', 'test homepage validity again']
-@Jesta(Types.CucumberNightWatch, 'tests/cucumber.feature')
+@Jesta(Types.CucumberNightWatch, 'tests/cucumber-nightwatch.1.feature')
 class NightwatchTest {
     state: any;
 
@@ -47,7 +47,7 @@ class NightwatchTest {
 
     @Then(theTests, /shutdown$/)
     public async  shutdown() {
-        return await client.end();
+       // return await client.end();
     }
 
 
