@@ -1,5 +1,6 @@
 import { Types } from '../types';
 import { JestRunner } from './jest';
+import { JestGurkinRunner } from './jest-gurkin';
 import { CucumberRunner } from './cucumber';
 import { JestNightWatchRunner, CucumberNightWatchRunner } from './nightwatch';
 export class Runner {
@@ -16,6 +17,9 @@ export class Runner {
                 break;
             case Types.CucumberNightWatch:
                 CucumberNightWatchRunner.run(_path, tests);
+                break;
+            case Types.JestGurkin:
+                JestGurkinRunner.run(_path, tests);
                 break;
         }
     }
